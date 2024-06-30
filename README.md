@@ -1,101 +1,76 @@
-# 🌐 Web3  Bank
+# ETH+AVAX
 
-> 💸 A Simple Web3 application for transferring Ether and personalizing your account. 
+This Solidity program is a simple "Hello World" program that demonstrates the basic syntax and functionality of the Solidity programming language. The purpose of this program is to serve as a starting point for those who are new to Solidity and want to get a feel for how it works.
 
-## Description 
+## Description
 
-This is an intuitive web3 application created using HTML, CSS, and Solidity. It leverages the power of Ethereum networks to provide a decentralized banking experience. With this dApp, users can easily deploy a contract and transfer Ether and personalize their account names. The application is built using Solidity smart contracts, the powerful Ethers.js library, and uses the user-friendly MetaMask wallet extension.
+This program is a simple contract written in Solidity, a programming language used for developing smart contracts on the Ethereum blockchain. The contract has a single function that returns the string "Hello World!". This program serves as a simple and straightforward introduction to Solidity programming, and can be used as a stepping stone for more complex projects in the future.
 
-### Application Preview 
+## Getting Started
+
+### Executing program
+
+To run this program, you can use Remix, an online Solidity IDE. To get started, go to the Remix website at https://remix.ethereum.org/.
+
+Once you are on the Remix website, create a new file by clicking on the "+" icon in the left-hand sidebar. Save the file with a .sol extension (e.g., HelloWorld.sol). Copy and paste the following code into the file:
+
+```javascript
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Bank {
+    mapping(address => string) accountNames;
+
+    event Transfer(uint256 amount);
+    event NameUpdate(string value);
+
+    function setAccountName(string memory _name) public {
+        require(
+            keccak256(abi.encodePacked(accountNames[msg.sender])) !=
+                keccak256(abi.encodePacked(_name)),
+            "New name is same as old name"
+        );
+        accountNames[msg.sender] = _name;
+
+        emit NameUpdate(accountNames[msg.sender]);
+    }
+
+    function getAccountName() public view returns (string memory) {
+        return accountNames[msg.sender];
+    }
+
+    error InsufficientBalance(uint256 balance, uint256 withdrawAmount);
+
+    function transferFunds(address payable _to) public payable {
+        _to.transfer(msg.value);
+        if (msg.sender.balance < msg.value)
+            revert
+                InsufficientBalance({
+                    balance: msg.sender.balance,
+                    withdrawAmount: msg.value
+                });
+        emit Transfer(msg.value);
+    }
+
+    function getBalance() public view returns (uint256) {
+        return msg.sender.balance;
+    }
+}
+
+```
+
+To compile the code, click on the "Solidity Compiler" tab in the left-hand sidebar. Make sure the "Compiler" option is set to "0.8.4" (or another compatible version), and then click on the "Compile HelloWorld.sol" button.
+
+Once the code is compiled, you can deploy the contract by clicking on the "Deploy & Run Transactions" tab in the left-hand sidebar. Select the "HelloWorld" contract from the dropdown menu, and then click on the "Deploy" button.
+
+Once the contract is deployed, you can interact with it by calling the sayHello function. Click on the "HelloWorld" contract in the left-hand sidebar, and then click on the "sayHello" function. Finally, click on the "transact" button to execute the function and retrieve the "Hello World!" message.
+
+## Authors
+
+Mystic  
+[@Mystic](https://twitter.com/Gurshabad90)
 
 
+## License
 
-[![Transfer Preview](https://i.postimg.cc/gj4XVxjs/USE.png)](https://postimg.cc/gLX2dkvL)
-
----
-
-
-## Technologies Used 🛠️
-
-[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)  ![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white)  ![Web3.js](https://img.shields.io/badge/web3.js-F16822?style=for-the-badge&logo=web3.js&logoColor=white)  ![Solidity](https://img.shields.io/badge/Solidity-%23363636.svg?style=for-the-badge&logo=solidity&logoColor=white)  ![Metamask](https://avatars.githubusercontent.com/u/11744586?s=48&v=4)  ![Hardhat](https://hardhat.org/_next/static/media/hardhat-logo.5c5f687b.svg)
-
-This project utilizes the following technologies:
-
-- **Solidity**: Solidity is a programming language specifically designed for writing smart contracts on the Ethereum platform. It is used to write the Bank smart contract in this project. [Learn more about Solidity](https://docs.soliditylang.org/).
-
-- **Ethers.js**: Ethers.js is a JavaScript library that provides a concise and consistent API for interacting with Ethereum and Ethereum-like networks. It is used to interact with the Ethereum blockchain and execute transactions in this project. [Explore Ethers.js](https://docs.ethers.org/v5/).
-
-- **MetaMask**: MetaMask is a popular browser extension wallet that allows users to manage Ethereum accounts and interact with decentralized applications. It is used to connect to the Ethereum network and perform transactions in this project. [Get MetaMask](https://metamask.io/).
-
-- **Hardhat**: Hardhat is a development environment and testing framework for Ethereum smart contracts. It provides tools for compiling, deploying, and testing contracts. Hardhat is used to compile and deploy the Bank smart contract in this project. [Discover Hardhat](https://hardhat.org/).
-
-Feel free to explore the provided links to learn more about each technology. 🚀
-
-## Installation ⬇️
-
-### Follow these steps to get the project up and running 🏗️
-
-1. Download or clone the project.
-2. Install the dependencies by running `npm install`.
-3. Start the local blockchain using Hardhat by running `npx hardhat node`.
-4. Open new terminal and deploy the Bank contract `npx hardhat run --network localhost scripts/deploy.js`.
-5. Start the development server by running `npm run dev`.
-
-### Configure MetaMask to use the Hardhat node 🦊
-
-1. Open the MetaMask extension in your browser.
-2. Click on the account icon in the top right corner and select "Settings".
-3. In the "Networks" tab, click on "Add Network".
-4. Fill in the following details:
-   - Network Name: hardhat-test-network
-   - RPC URL: http://127.0.0.1:8545/
-   - Chain ID: 31337
-   - Currency Symbol: GO or ETH
-5. Click on "Save" to add the Hardhat network to MetaMask.
-
-### Add accounts using private keys by Hardhat for testing 🔑
-
-1. In the MetaMask extension, click on the account icon in the top right corner.
-2. Select "Import Account" or "Import Account using Private Key" (depending on your version of MetaMask).
-3. In the "Private Key" field, enter one of the private keys provided by Hardhat.
-   - To access the list of private keys, open the terminal where you started the Hardhat local network.
-   - The private keys are displayed as part of the accounts generated by Hardhat.
-4. Click on "Import" to import the account into MetaMask.
-5. Repeat the above steps to add more accounts for testing purposes.
-
-> If you need detailed instructions or visual guidance, you can refer to this step-by-step guide on [how to use MetaMask with a Hardhat node](https://support.chainstack.com/hc/en-us/articles/4408642503449-Using-MetaMask-with-a-Hardhat-node).
-
-
-## Usage 🪜
-
-**To use the application, follow these instructions:**
-
-1. After connecting MetaMask to the Hardhat local network, connect your wallet with the application
-2. Click on Transfer Funds and fill in the recipient's address and the amount you want to transfer.
-3. Click the "Transfer" button to initiate the transaction.
-4. Confirm the transaction in MetaMask.
-5. The transaction details will be logged to the console, and the account balance will be updated.
-
-**You can also personalize your account name:**
-
-1. Enter a new name in the input field.
-2. Click the "Update Name" button to set the new account name.
-3. Confirm the transaction in MetaMask.
-4. The account name will be updated, and the change will be reflected in the account details.
-
-## Contract Details 🔗
-
-The smart contract used in this project is named `Bank` present inside the `contracts/Bank.sol` file. It allows users to set an account name and transfer funds. The contract emits events for successful transfers and name updates.
-
-## Configuration ⚙️
-
-The `hardhat.config.js` file is used for configuring the Hardhat development environment. It specifies the Solidity version and required libraries to deploy contracts on the hardhat node.
-
-## Scripts 📜
-
-The `deploy.js` script, located in the `scripts` folder, is used to deploy the Bank contract. It uses Hardhat's `ethers` library to interact with the blockchain. This script is executed with the `npx hardhat run` command.
-
----
-
-This project is open-source !😉
-
+This project is licensed under the MIT License - see the LICENSE.md file for details
