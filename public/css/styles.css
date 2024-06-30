@@ -1,0 +1,108 @@
+/* Universal reset and box-sizing */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Body background and font settings */
+body {
+  background-color: #282c34; /* Dark background */
+  font-family: 'Verdana', 'Geneva', 'Tahoma', sans-serif;
+  color: #e8e8e8; /* Light text color */
+  line-height: 1.6;
+}
+
+/* Utility classes for width and font */
+.u-width {
+  width: calc(50% - 10px);
+  margin: 10px auto;
+  padding: 20px;
+  background-color: #3b3f47; /* Slightly lighter dark background */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Darker shadow for depth */
+  transition: transform 0.3s ease-in-out;
+}
+
+.u-width:hover {
+  transform: translateY(-10px);
+}
+
+@media (max-width: 600px) {
+  .u-width {
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+
+/* Hiding elements */
+.hide {
+  display: none !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  visibility: hidden !important;
+  transition: all 2s ease-in-out !important;
+}
+
+/* Disable hover */
+.disable:hover {
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+}
+
+/* Additional styling for buttons */
+button {
+  background-color: #61dafb; /* Light blue button */
+  color: #282c34; /* Dark text color */
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #21a1f1; /* Darker blue on hover */
+  transform: translateY(-5px);
+}
+
+/* Styling for question container */
+.question-container {
+  background-color: #3b3f47; /* Slightly lighter dark background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Darker shadow for depth */
+  margin-bottom: 20px;
+}
+
+.question-container h2 {
+  margin-bottom: 15px;
+  font-size: 24px;
+  color: #61dafb; /* Light blue heading */
+}
+
+.question-container p {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+/* Styling for answer options */
+.answer-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.answer-options button {
+  flex: 1 1 calc(50% - 20px);
+}
+
+@media (max-width: 600px) {
+  .answer-options button {
+    flex: 1 1 100%;
+  }
+}
