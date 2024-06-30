@@ -1,4 +1,4 @@
-# 🌐 Web3 Local Bank
+# 🌐 Web3  Bank
 
 > 💸 A Simple Web3 application for transferring Ether and personalizing your account. 
 
@@ -8,7 +8,7 @@ This is an intuitive web3 application created using HTML, CSS, and Solidity. It 
 
 ### Application Preview 
 
-[![Web3 Local Bank](https://i.postimg.cc/qqp66sJg/FULL.png)](https://postimg.cc/5Yk2ZFFM)
+
 
 [![Transfer Preview](https://i.postimg.cc/gj4XVxjs/USE.png)](https://postimg.cc/gLX2dkvL)
 
